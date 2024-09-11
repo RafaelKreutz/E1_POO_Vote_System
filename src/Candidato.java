@@ -3,13 +3,14 @@ public class Candidato {
     private String munincipio;
     private int numero;
     private int votos;
-    private String prefeitoouvereador;
+    public String prefeitoouvereador;
 
     public Candidato(String nome, String municipio, int numero, int votos, String prefeitoouvereador) {
         this.nome = nome;
         this.munincipio = municipio;
         this.numero = numero;
         this.votos = votos;
+        this.prefeitoouvereador = prefeitoouvereador;
     }
 
     public String getNome() {

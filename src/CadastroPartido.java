@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 public class CadastroPartido {
-    public static ArrayList<Partido> partidos;
+    public static ArrayList<Partido> partidos = new ArrayList<>();
 
     public boolean cadastraPartido(Partido partido,String nome, int numero) {
         boolean existe = false;
@@ -43,8 +43,8 @@ public class CadastroPartido {
     public static void adicionaCandidato() {
         for (int i = 0; i < partidos.size(); i++) {
             for (int j = 0; j < Candidatura.candidatos.size(); j++) {
-                if(Candidatura.candidatos.get(i).getNumero() == partidos.get(i).getNumero()){
-                    partidos.get(i).setNumerodecandidatos(partidos.get(i).getNumerodecandidatos() + 1);
+                if(ACMEVoting.pegarDoisPrimeirosDigitos(Candidatura.candidatos.get(i).getNumero()).equals(ACMEVoting.pegarDoisPrimeirosDigitos(partidos.get(i).getNumero()))){
+                    CadastroPartido.partidos.get(i).numerodecandidatos++;
                 }
             }
         }

@@ -9,8 +9,8 @@ import java.util.Scanner;
 public class ACMEVoting {
     private Scanner entrada = new Scanner(System.in);  // Atributo para entrada padrao (teclado)
     private PrintStream saidaPadrao = System.out;   // Guarda a saida padrao - tela (console)
-    private final String nomeArquivoEntrada = "entrada.txt";  // Nome do arquivo de entrada de dados
-    private final String nomeArquivoSaida = "saida.txt";  // Nome do arquivo de saida de dados
+    private final String nomeArquivoEntrada = "input.txt";  // Nome do arquivo de entrada de dados
+    private final String nomeArquivoSaida = "output.txt";  // Nome do arquivo de saida de dados
     private CadastroPartido cadastroPartido = new CadastroPartido();
     private Candidatura candidatura = new Candidatura();
     private Partido partido = new Partido(null,0);
@@ -26,12 +26,16 @@ public class ACMEVoting {
         adicionarVotos();
         buscarPartido();
         buscarCandidato();
+        mostrarVotosPrefeito();
+        mostrarPartidoComMaisCandidatos();
+        mostrarVereadorEPrefeitoMaisVotados();
     }
 
     public void inicializarPartido() {
         boolean parar = true;
         while (parar) {
             int numero = entrada.nextInt();
+            entrada.nextLine();
             if (numero == -1) {
                 parar = false;
             }
@@ -42,15 +46,24 @@ public class ACMEVoting {
         }
     }
     public void inicializarCandidato() {
-        CadastroPartido.adicionaCandidato();
+        //CadastroPartido.adicionaCandidato();
+        //Candidatura.candidatos.get(i).setVotos(Candidatura.candidatos.get(i).getVotos() + votos);
         boolean parar = true;
         String prefeitoouvereador = null;
         while (parar) {
             int numero = entrada.nextInt();
+            entrada.nextLine();
             if (numero == -1) {
                 parar = false;
             }
             else {
+                //for (int i = 0; i < CadastroPartido.partidos.size(); i++) {
+                 //   if(numero == CadastroPartido.partidos.get(i).getNumero()){
+                  //      int temp = partido.getNumerodecandidatos();
+                  //     temp = temp + 1;
+                     //   partido.setNumerodecandidatos(temp);
+                   // }
+               // }
                 if (numero > 99 ) {
                     prefeitoouvereador = "vereador";
                 }
@@ -59,9 +72,12 @@ public class ACMEVoting {
                 }
                 String nome = entrada.nextLine();
                 String munincipio = entrada.nextLine();
-                /*int jorge = partido.getNumerodecandidatos();
-                partido.setNumerodecandidatos(jorge = partido.getNumerodecandidatos() + 1);*/
                 candidatura.cadastraCandidato(null,  numero,nome,munincipio,0, prefeitoouvereador);
+                for (int i = 0; i < CadastroPartido.partidos.size(); i++) {
+                    if(ACMEVoting.pegarDoisPrimeirosDigitos(numero).equals(ACMEVoting.pegarDoisPrimeirosDigitos(CadastroPartido.partidos.get(i).getNumero()))){
+                        CadastroPartido.partidos.get(i).numerodecandidatos++;
+                    }
+                }
 
             }
         }
@@ -71,27 +87,33 @@ public class ACMEVoting {
         boolean parar = true;
         while (parar) {
             int numero = entrada.nextInt();
+            entrada.nextLine();
             if(numero != -1) {
                 String munincipio = entrada.nextLine();
                 int votos = entrada.nextInt();
+                entrada.nextLine();
                 boolean candidatoencontrado = false;
                 for (int i = 0; i < Candidatura.candidatos.size(); i++) {
                     if (Candidatura.candidatos.get(i).getNumero() == numero) {
                         Candidatura.candidatos.get(i).setVotos(Candidatura.candidatos.get(i).getVotos() + votos);
-                        System.out.println("4:" + Candidatura.candidatos.get(i).getNumero() + "," + Candidatura.candidatos.get(i).getMunincipio() + "," + Candidatura.candidatos.get(i).getVotos());
+                        System.out.println("3:" + Candidatura.candidatos.get(i).getNumero() + "," + Candidatura.candidatos.get(i).getMunincipio() + "," + Candidatura.candidatos.get(i).getVotos());
                         candidatoencontrado = true;
                     }
                 }
                 if (!candidatoencontrado) {
-                    System.out.println("4:Nenhum partido encontrado.");
+                    System.out.println("3:Nenhum partido encontrado.");
                 }
             }
-            parar = false;
+            else{
+                parar = false;
+            }
+
         }
     }
 
     public void buscarPartido() {
             int numero = entrada.nextInt();
+            entrada.nextLine();
             Partido partido = cadastroPartido.consultaPartido(numero);
             if (partido != null) {
                 System.out.println("4:" + partido.getNumero() + "," + partido.getNome());
@@ -101,12 +123,13 @@ public class ACMEVoting {
     }
     public void buscarCandidato() {
         int numero = entrada.nextInt();
+        entrada.nextLine();
         String munincipio = entrada.nextLine();
         boolean candidatoencontrado = false;
         for (int i = 0; i < Candidatura.candidatos.size(); i++) {
             if (Candidatura.candidatos.get(i).getNumero() == numero) {
                 candidatoencontrado = true;
-                System.out.println(Candidatura.candidatos.get(i).getNumero() + "," + Candidatura.candidatos.get(i).getNome() + "," + Candidatura.candidatos.get(i).getMunincipio() + "," + Candidatura.candidatos.get(i).getVotos() );
+                System.out.println("5:" + Candidatura.candidatos.get(i).getNumero() + "," + Candidatura.candidatos.get(i).getNome() + "," + Candidatura.candidatos.get(i).getMunincipio() + "," + Candidatura.candidatos.get(i).getVotos() );
             }
         }
         if (!candidatoencontrado) {
@@ -117,11 +140,13 @@ public class ACMEVoting {
         String nome = entrada.nextLine();
         boolean prefeitosencontrados = false;
 
-        for (int i = 0; i < Candidatura.candidatos.size(); i++) {
-            if(Candidatura.candidatos.get(i).getPrefeitoOuVereador().equalsIgnoreCase("prefeito") && nome.equalsIgnoreCase(Candidatura.candidatos.get(i).getNome())) {
+        for (int i = 0; i < CadastroPartido.partidos.size(); i++) {
+            //Candidatura.candidatos.get(i).getPrefeitoOuVereador().equalsIgnoreCase("prefeito") &&
+            if(nome.equalsIgnoreCase(CadastroPartido.partidos.get(i).getNome())) {
                 prefeitosencontrados = true;
-                Partido partido = cadastroPartido.consultaPartido(Candidatura.candidatos.get(i).getNumero());
-                System.out.println(partido.getNome() + "," + Candidatura.candidatos.get(i).getNumero() + "," + Candidatura.candidatos.get(i).getNome() + "," + Candidatura.candidatos.get(i).getMunincipio() + "," + Candidatura.candidatos.get(i).getVotos() );
+                //Partido partido = cadastroPartido.consultaPartido(Candidatura.candidatos.get(i).getNumero());
+                Candidato candidato = candidatura.consultaCandidato(CadastroPartido.partidos.get(i).getNumero());
+                System.out.println("6:" + CadastroPartido.partidos.get(i).getNome() + "," + candidato.getNumero() + "," + candidato.getNome() + "," + candidato.getMunincipio() + "," + candidato.getVotos() );
             }
         }
         if (!prefeitosencontrados) {
@@ -129,8 +154,62 @@ public class ACMEVoting {
         }
 
     }
+
     public void mostrarPartidoComMaisCandidatos() {
-        //parei aqui
+        Partido maiorpartido = null;
+        int maior = Integer.MIN_VALUE;
+        int candidatospartido = 0;
+
+
+
+
+        for (int i = 0; i < CadastroPartido.partidos.size(); i++) {
+            for (int j = 0; j < CadastroPartido.partidos.size(); j++) {
+                if (CadastroPartido.partidos.get(i).numerodecandidatos >= CadastroPartido.partidos.get(j).numerodecandidatos) {
+                    maiorpartido = CadastroPartido.partidos.get(i);
+                }
+            }
+
+        }
+        if (maior == 0) {
+            System.out.println("7:Nenhum partido com candidatos.");
+        }
+        else{
+            System.out.println("7:" + maiorpartido.getNumero() + "," + maiorpartido.getNome() + "," + maiorpartido.numerodecandidatos);
+        }
+    }
+    public void mostrarVereadorEPrefeitoMaisVotados() {
+        if (Candidatura.candidatos.isEmpty()) {
+            System.out.println("8:Nenhum candidato encontrado.");
+        } else {
+            Candidato prefeitoComMaisVotos = null;
+            Candidato vereadorComMaisVotos = null;
+
+            for (int i = 0; i < Candidatura.candidatos.size(); i++) {
+                Candidato candidatoAtual = Candidatura.candidatos.get(i);
+
+                if (candidatoAtual.prefeitoouvereador.equalsIgnoreCase("prefeito")) {
+                    if (prefeitoComMaisVotos == null || candidatoAtual.getVotos() > prefeitoComMaisVotos.getVotos()) {
+                        prefeitoComMaisVotos = candidatoAtual;
+                    }
+                } else if (candidatoAtual.prefeitoouvereador.equalsIgnoreCase("vereador")) {
+                    if (vereadorComMaisVotos == null || candidatoAtual.getVotos() > vereadorComMaisVotos.getVotos()) {
+                        vereadorComMaisVotos = candidatoAtual;
+                    }
+                }
+            }
+            if (prefeitoComMaisVotos != null) {
+                System.out.println("8:" + prefeitoComMaisVotos.getNumero() + "," + prefeitoComMaisVotos.getNome() + "," + prefeitoComMaisVotos.getMunincipio() + "," + prefeitoComMaisVotos.getVotos());
+            } else {
+                System.out.println("Nenhum candidato a prefeito encontrado.");
+            }
+
+            if (vereadorComMaisVotos != null) {
+                System.out.println("8:" + vereadorComMaisVotos.getNumero() + "," + vereadorComMaisVotos.getNome() + "," + vereadorComMaisVotos.getMunincipio() + "," + vereadorComMaisVotos.getVotos());
+            } else {
+                System.out.println("Nenhum candidato a vereador encontrado.");
+            }
+        }
     }
 
 
@@ -173,6 +252,14 @@ public class ACMEVoting {
     private void restauraSaida() {
         System.setOut(saidaPadrao);
     }
-
+    public static String pegarDoisPrimeirosDigitos(int numero) {
+        String numeroString = String.valueOf(numero); // Converte o número em uma string
+        if (numeroString.length() >= 2) {
+            return numeroString.substring(0, 2); // Retorna os dois primeiros caracteres
+        } else {
+            return numeroString; // Se o número tiver menos de 2 dígitos, retorna o número inteiro
+        }
+    }
 }
+
 

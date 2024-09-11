@@ -1,14 +1,14 @@
+import java.util.LinkedList;
+
 public class Partido {
     private int numero;
     private String nome;
-    private int numerodecandidatos;
+    public int numerodecandidatos;
 
     public Partido(String nome, int numero) {
         this.nome = nome;
         this.numero = numero;
     }
-
-
 
     public int getNumero() {
         return numero;
