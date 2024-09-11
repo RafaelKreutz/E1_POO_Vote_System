@@ -7,10 +7,15 @@ public class Partido {
         this.numero = numero;
     }
 
-    public void adicionaCandidato(){
-        Candidato c = new Candidato();
+    public void adicionaCandidato(Candidato candidato) {
+
+        candidato = new Candidato();
     }
     public int getNumero() {
         return numero;
+    }
+
+    public String getNome() {
+        return nome;
     }
 }

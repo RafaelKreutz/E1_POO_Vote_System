@@ -2,21 +2,46 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class CadastroPartido {
-    public Scanner entrada = new Scanner(System.in);
     public ArrayList<Partido> partidos;
-    public boolean cadastraPartido(Partido partido) {
 
+    public boolean cadastraPartido(Partido partido,String nome, int numero) {
+        boolean existe = false;
+        if (numero != -1) {
+            for (int i = 0; i < partidos.size(); i++) {
+                if (numero == partidos.get(i).getNumero()) {
+                    existe = true;
+                }
+            }
+            if (!existe) {
+                partido = new Partido(nome, numero);
+                partidos.add(partido);
+                System.out.println("1:" + partido.getNumero() + "," + partido.getNome());
+                return true;
+            }
+
+        }
         return false;
     }
 
     public Partido consultaPartido(String nome){
+
+        for (int i = 0; i < partidos.size(); i++) {
+            if (partidos.get(i).getNome().equals(nome)) {
+                return partidos.get(i);
+            }
+        }
         return null;
     }
     public Partido consultaPartido(int numero){
+        for (int i = 0; i < partidos.size(); i++) {
+            if (partidos.get(i).getNumero() == numero) {
+                return partidos.get(i);
+            }
+        }
         return null;
     }
 
-    public void cadastraPartido(boolean cadastraPartido){
+    /*public void cadastraPartido(boolean cadastraPartido) {
         boolean existe = false;
         int numero;
         String nome;
@@ -24,17 +49,21 @@ public class CadastroPartido {
         nome = entrada.nextLine();
         System.out.println("Digite o número do partido");
         numero = entrada.nextInt();
-        for (int i = 0; i < partidos.size(); i++) {
-            if(numero == partidos.get(i).getNumero()){
-                existe = true;
+        if (numero == -1) {
+
+        } else {
+            for (int i = 0; i < partidos.size(); i++) {
+                if (numero == partidos.get(i).getNumero()) {
+                    existe = true;
+                }
+            }
+            if (!existe) {
+                Partido partido = new Partido(nome, numero);
+                partidos.add(partido);
+                System.out.println(partidos.indexOf(partido) + ":" + partido.getNumero() + "," + partido.getNome());
+            } else {
+                System.out.println("Partido com esse numero já existe");
             }
         }
-        if (!existe) {
-            Partido partido = new Partido(nome,numero);
-            partidos.add(partido);
-        }
-        else{
-            System.out.println("Partido com esse numero já existe");
-        }
-    }
+    }*/
 }
