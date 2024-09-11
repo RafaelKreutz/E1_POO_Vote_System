@@ -15,6 +15,7 @@ public class Candidatura {
                 candidato = new Candidato(nome, munincipio, numero, votos, prefeitoouvereador);
                 candidatos.add(candidato);
                 System.out.println("1:" + numero + "," + nome + "," + munincipio);
+
                 return true;
             }
 

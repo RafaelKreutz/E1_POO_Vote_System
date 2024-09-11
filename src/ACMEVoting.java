@@ -13,6 +13,7 @@ public class ACMEVoting {
     private final String nomeArquivoSaida = "saida.txt";  // Nome do arquivo de saida de dados
     private CadastroPartido cadastroPartido = new CadastroPartido();
     private Candidatura candidatura = new Candidatura();
+    private Partido partido = new Partido(null,0);
 
     public ACMEVoting() {
         redirecionaEntrada();    // Redireciona Entrada para arquivos
@@ -41,6 +42,7 @@ public class ACMEVoting {
         }
     }
     public void inicializarCandidato() {
+        CadastroPartido.adicionaCandidato();
         boolean parar = true;
         String prefeitoouvereador = null;
         while (parar) {
@@ -57,7 +59,9 @@ public class ACMEVoting {
                 }
                 String nome = entrada.nextLine();
                 String munincipio = entrada.nextLine();
-                candidatura.cadastraCandidato(null, numero,nome,munincipio,0, prefeitoouvereador);
+                /*int jorge = partido.getNumerodecandidatos();
+                partido.setNumerodecandidatos(jorge = partido.getNumerodecandidatos() + 1);*/
+                candidatura.cadastraCandidato(null,  numero,nome,munincipio,0, prefeitoouvereador);
 
             }
         }
@@ -126,7 +130,7 @@ public class ACMEVoting {
 
     }
     public void mostrarPartidoComMaisCandidatos() {
-
+        //parei aqui
     }
 
 
@@ -172,4 +176,3 @@ public class ACMEVoting {
 
 }
 
-}

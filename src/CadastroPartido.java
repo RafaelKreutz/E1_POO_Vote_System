@@ -1,8 +1,7 @@
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class CadastroPartido {
-    public ArrayList<Partido> partidos;
+    public static ArrayList<Partido> partidos;
 
     public boolean cadastraPartido(Partido partido,String nome, int numero) {
         boolean existe = false;
@@ -40,6 +39,17 @@ public class CadastroPartido {
         }
         return null;
     }
+
+    public static void adicionaCandidato() {
+        for (int i = 0; i < partidos.size(); i++) {
+            for (int j = 0; j < Candidatura.candidatos.size(); j++) {
+                if(Candidatura.candidatos.get(i).getNumero() == partidos.get(i).getNumero()){
+                    partidos.get(i).setNumerodecandidatos(partidos.get(i).getNumerodecandidatos() + 1);
+                }
+            }
+        }
+    }
+
 
     /*public void cadastraPartido(boolean cadastraPartido) {
         boolean existe = false;
