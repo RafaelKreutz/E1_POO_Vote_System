@@ -3,12 +3,13 @@ import java.util.ArrayList;
 public class CadastroPartido {
     public static ArrayList<Partido> partidos = new ArrayList<>();
 
-    public boolean cadastraPartido(Partido partido,String nome, int numero) {
+    public boolean cadastraPartido(Partido partido, String nome, int numero) {
         boolean existe = false;
         if (numero != -1) {
             for (int i = 0; i < partidos.size(); i++) {
                 if (numero == partidos.get(i).getNumero()) {
                     existe = true;
+                    break;
                 }
             }
             if (!existe) {
@@ -22,7 +23,7 @@ public class CadastroPartido {
         return false;
     }
 
-    public Partido consultaPartido(String nome){
+    public Partido consultaPartido(String nome) {
 
         for (int i = 0; i < partidos.size(); i++) {
             if (partidos.get(i).getNome().equals(nome)) {
@@ -31,7 +32,8 @@ public class CadastroPartido {
         }
         return null;
     }
-    public Partido consultaPartido(int numero){
+
+    public Partido consultaPartido(int numero) {
         for (int i = 0; i < partidos.size(); i++) {
             if (partidos.get(i).getNumero() == numero) {
                 return partidos.get(i);
@@ -43,37 +45,10 @@ public class CadastroPartido {
     public static void adicionaCandidato() {
         for (int i = 0; i < partidos.size(); i++) {
             for (int j = 0; j < Candidatura.candidatos.size(); j++) {
-                if(ACMEVoting.pegarDoisPrimeirosDigitos(Candidatura.candidatos.get(i).getNumero()).equals(ACMEVoting.pegarDoisPrimeirosDigitos(partidos.get(i).getNumero()))){
+                if (ACMEVoting.pegarDoisPrimeirosDigitos(Candidatura.candidatos.get(i).getNumero()).equals(ACMEVoting.pegarDoisPrimeirosDigitos(partidos.get(i).getNumero()))) {
                     CadastroPartido.partidos.get(i).numerodecandidatos++;
                 }
             }
         }
     }
-
-
-    /*public void cadastraPartido(boolean cadastraPartido) {
-        boolean existe = false;
-        int numero;
-        String nome;
-        System.out.println("Digite o nome do Partido:");
-        nome = entrada.nextLine();
-        System.out.println("Digite o número do partido");
-        numero = entrada.nextInt();
-        if (numero == -1) {
-
-        } else {
-            for (int i = 0; i < partidos.size(); i++) {
-                if (numero == partidos.get(i).getNumero()) {
-                    existe = true;
-                }
-            }
-            if (!existe) {
-                Partido partido = new Partido(nome, numero);
-                partidos.add(partido);
-                System.out.println(partidos.indexOf(partido) + ":" + partido.getNumero() + "," + partido.getNome());
-            } else {
-                System.out.println("Partido com esse numero já existe");
-            }
-        }
-    }*/
 }

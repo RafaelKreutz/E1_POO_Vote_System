@@ -1,4 +1,3 @@
-import java.util.LinkedList;
 
 public class Partido {
     private int numero;
@@ -17,18 +16,16 @@ public class Partido {
     public String getNome() {
         return nome;
     }
+
     public void setNumero(int numero) {
         this.numero = numero;
     }
+
     public void setNumerodecandidatos(int numerodecandidatos) {
         this.numerodecandidatos = numerodecandidatos;
     }
+
     public int getNumerodecandidatos() {
         return numerodecandidatos;
     }
-    /*public void adicionaCandidato(Candidato candidato, Partido partido) {
-        if(candidato.getNumero() == partido.getNumero()){
-            partido.setNumerodecandidatos(getNumerodecandidatos() + getNumerodecandidatos() + 1);
-        }
-    }*/
 }

@@ -9,6 +9,7 @@ public class Candidatura {
             for (int i = 0; i < candidatos.size(); i++) {
                 if (numero == candidatos.get(i).getNumero()) {
                     existe = true;
+                    break;
                 }
             }
             if (!existe) {
@@ -22,7 +23,8 @@ public class Candidatura {
         }
         return false;
     }
-    public Candidato consultaCandidato(int numero){
+
+    public Candidato consultaCandidato(int numero) {
         for (int i = 0; i < candidatos.size(); i++) {
             if (candidatos.get(i).getNumero() == numero) {
                 return candidatos.get(i);
